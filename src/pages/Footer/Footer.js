@@ -1,13 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Footer extends Component {
-  render () {
-    return (
-      <React.Fragment>
-        <footer className="footer">footer</footer>
-      </React.Fragment>
-    );
-  }
+function Footer() {
+  return (
+    <React.Fragment>
+      <footer className="footer">footer</footer>
+    </React.Fragment>
+  );
 }
 
 export default Footer;

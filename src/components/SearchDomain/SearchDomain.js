@@ -1,63 +1,43 @@
-import React, {Component} from 'react';
+import React, { useState, useCallback } from 'react';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 import { Redirect } from 'react-router-dom'
-import {connect} from 'react-redux'
-import {searchDomain} from '../../store/actions/domain'
+import { useDispatch } from 'react-redux'
+import { searchDomain } from '../../store/actions/domain'
 
-class SearchDomain extends Component {
+function SearchDomain(props) {
+  const dispatch = useDispatch();
+  const [domain, setDomain] = useState('');
+  const [toResultPage, setToResultPage] = useState(false);
+  const search = useCallback(
+    () => {
+      let result = dispatch(searchDomain(domain));
+      result.then(data => {
+        setToResultPage(true);
+      }).catch(() => {
+        console.log('catch');
+      });
+    },
+    [dispatch, searchDomain, setToResultPage, domain]
+  );
 
-  constructor(proprs) {
-    super();
-    this.state = {
-      domain: '',
-      toResultPage: false
-    }
+  const changeHandler = (event) => {
+    setDomain(event.target.value);
   }
 
-  searchDomain() {
-    let result = this.props.searchDomain(this.state.domain);
-    result.then(data => {
-      this.setState(() => ({
-        toResultPage: true
-      }))
-    }).catch(() => {
-      console.log('catch');
-    });
+  if (toResultPage === true) {
+    return <Redirect to='/searchResult' />
   }
-
-  changeHandler = (event) => {
-    const domain = event.target.value;
-    this.setState((state, props) => ({
-      domain
-    }));
-  }
-
-  clickHandler = () => {
-    this.searchDomain(this.state.domain);
-  }
-
-  render () {
-    if (this.state.toResultPage === true) {
-      return <Redirect to='/searchResult' />
-    }
-    return (
-      <React.Fragment>
-        <Input 
-          value={this.state.domain}
-          onChange={this.changeHandler} 
-          placeholder="Search domain name"
-        />
-        <Button clickHandler={this.clickHandler} classes="btn-outline-secondary">Search</Button>
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Input 
+        value={domain}
+        onChange={changeHandler} 
+        placeholder="Search domain name"
+      />
+      <Button clickHandler={search} classes="btn-outline-secondary">Search</Button>
+    </React.Fragment>
+  );
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    searchDomain: (domain) => dispatch(searchDomain(domain))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(SearchDomain);
+export default SearchDomain;

@@ -8,6 +8,7 @@ const initialState = {
   lastId: 0,
   cart: JSON.parse(localStorage.getItem('cart')) || [],
 }
+initialState.lastId = initialState.cart.length;
 
 const actions = {
   [CART_ADD](state, action) {

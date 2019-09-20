@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { cartAdd, cartRemove, cartSave } from '../../store/actions/cart';
-import {connect} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import './TLD.css';
 
-class TLD extends Component {
+function TLD(props) {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cart);
 
-  constructor(proprs) {
-    super();
-  }
-
-  inCart() {
+  const inCart = () => {
     let res = false;
-    this.props.cart.some(product => {
-      if(product.code === this.props.domain) {
+    cart.some(product => {
+      if(product.code === props.domain) {
         res = product;
         return true;
       }
@@ -21,42 +19,31 @@ class TLD extends Component {
     return res;
   }
 
-  toogleProduct(domain) {
-    let inCart = this.inCart();
-    if(inCart) {
-      this.props.removeDomain(inCart.id);
+  const addDomain = (domain) => {
+    dispatch(cartAdd(domain));
+    dispatch(cartSave());
+  };
+  const removeDomain = (domain) => {
+    dispatch(cartRemove(domain));
+    dispatch(cartSave());
+  };
+
+  const toogleProduct = (event) => {
+    let inCartData = inCart();
+    if(inCartData) {
+      removeDomain(inCartData.id);
     } else {
-      this.props.addDomain(domain);
+      addDomain(props.domain);
     }
   }
 
-  render () {
-    var tld = '.' + this.props.domain.split('.').splice(1).join('.');
-    return (
-      <React.Fragment>
-        <div className={ this.inCart() ? 'tld-added' : '' } onClick={this.toogleProduct.bind(this, this.props.domain)}>{ tld }</div>
-      </React.Fragment>
-    );
-  }
+  var tld = '.' + props.domain.split('.').splice(1).join('.');
+
+  return (
+    <React.Fragment>
+      <div className={ inCart() ? 'tld-added' : '' } onClick={toogleProduct}>{ tld }</div>
+    </React.Fragment>
+  )
 }
 
-function mapStateToProps(state) {
-  return {
-    cart: state.cart.cart
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addDomain: (domain) => {
-      dispatch(cartAdd(domain));
-      dispatch(cartSave());
-    },
-    removeDomain: (domain) => {
-      dispatch(cartRemove(domain));
-      dispatch(cartSave());
-    }
-  }
-}
-
-export default  connect(mapStateToProps, mapDispatchToProps)(TLD);
+export default  TLD;
