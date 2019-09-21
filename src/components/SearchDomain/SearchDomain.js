@@ -5,10 +5,12 @@ import { Redirect } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { searchDomain } from '../../store/actions/domain'
 
-function SearchDomain(props) {
+function SearchDomain() {
   const dispatch = useDispatch();
   const [domain, setDomain] = useState('');
   const [toResultPage, setToResultPage] = useState(false);
+  
+  //When passing a callback using dispatch to a child component, it is recommended to memoize it with useCallback
   const search = useCallback(
     () => {
       let result = dispatch(searchDomain(domain));
@@ -35,7 +37,7 @@ function SearchDomain(props) {
         onChange={changeHandler} 
         placeholder="Search domain name"
       />
-      <Button clickHandler={search} classes="btn-outline-secondary">Search</Button>
+      <Button onClick={search} className="btn btn-outline-secondary">Search</Button>
     </React.Fragment>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function Input(props) {
+function Input({ onChange, label, id, wrapClasses, ...restProps }) {
   const [valid, setValid] = useState(false);
-  const onChange = props.onChange || (() => null);
 
   const validate = (value) => {
     let validStatus = !!value;
@@ -15,33 +15,48 @@ function Input(props) {
     onChange(event);
   }
 
-  
-  const type = props.type || 'text';
-  const label = props.label || '';
-  const placeholder = props.placeholder || 'Enter domain name';
-  const id = props.id || `${type}-${Math.random()}`;
-  const wrapClasses = 'input-wrapper form-group input-group mb-12' + (props.wrapClasses);
-  const inputClasses = 'form-control ' + (props.inputClasses);
+  const allWrapClasses = 'input-wrapper form-group input-group mb-12' + wrapClasses;
 
   return (
-    <div className={wrapClasses}>
+    <div className={allWrapClasses}>
       <label htmlFor={id}>{label}</label>
       <div className="input-group-append">
         <input 
-          id={id} 
-          type={type} 
-          value={props.value} 
+          id={ id } 
+          type="text" 
+          value=""
           onChange={ changeHandler } 
-          className={inputClasses}  
-          placeholder={placeholder}
+          className="form-control"
+          placeholder="Enter domain name"
+          { ...restProps }
         />
       </div>
-      {
-        !valid && <div>Please enter domain name.</div>
-      }
+      { !valid && <div>Please enter domain name.</div> }
     </div>
   )
 }
+
+Input.defaultProps = {
+  onChange: (() => null),
+  label: '',
+  id: `input-${Math.random()}`,
+  wrapClasses: '',
+};
+
+Input.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  id: PropTypes.string,
+  wrapClasses: PropTypes.string,
+  type: PropTypes.string,
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool
+  ]),
+};
 
 export default Input;
 

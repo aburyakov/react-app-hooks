@@ -1,49 +1,43 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { cartAdd, cartRemove, cartSave } from '../../store/actions/cart';
 import { useDispatch, useSelector } from 'react-redux'
+import PropTypes from 'prop-types';
 import './TLD.css';
+import { getProductById } from '../../store/selectors/cart';
 
-function TLD(props) {
+function TLD({ domain }) {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart.cart);
+  const selectGetProductById = useMemo(getProductById, []);//for multiple component instances depends on the component's props
+  const inCart = useSelector((state) => selectGetProductById(state, domain));
 
-  const inCart = () => {
-    let res = false;
-    cart.some(product => {
-      if(product.code === props.domain) {
-        res = product;
-        return true;
-      }
-      return false;
-    });
-    return res;
-  }
-
-  const addDomain = (domain) => {
-    dispatch(cartAdd(domain));
+  const addDomain = (domainName) => {
+    dispatch(cartAdd(domainName));
     dispatch(cartSave());
   };
-  const removeDomain = (domain) => {
-    dispatch(cartRemove(domain));
+  const removeDomain = (domainId) => {
+    dispatch(cartRemove(domainId));
     dispatch(cartSave());
   };
 
   const toogleProduct = (event) => {
-    let inCartData = inCart();
-    if(inCartData) {
-      removeDomain(inCartData.id);
+    if(inCart) {
+      removeDomain(inCart.id);
     } else {
-      addDomain(props.domain);
+      addDomain(domain);
     }
   }
 
-  var tld = '.' + props.domain.split('.').splice(1).join('.');
+  var tld = '.' + domain.split('.').splice(1).join('.');
 
   return (
     <React.Fragment>
-      <div className={ inCart() ? 'tld-added' : '' } onClick={toogleProduct}>{ tld }</div>
+      <div className={ inCart ? 'tld-added' : '' } onClick={toogleProduct}>{ tld }</div>
     </React.Fragment>
   )
 }
+
+TLD.propTypes = {
+  domain: PropTypes.string.isRequired
+};
 
 export default  TLD;

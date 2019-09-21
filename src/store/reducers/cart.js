@@ -8,32 +8,34 @@ const initialState = {
   lastId: 0,
   cart: JSON.parse(localStorage.getItem('cart')) || [],
 }
-initialState.lastId = initialState.cart.length;
+initialState.lastId = initialState.cart.length ? initialState.cart[initialState.cart.length - 1].id : 0;
 
 const actions = {
   [CART_ADD](state, action) {
     let nextId = state.lastId + 1;
+    let newProduct = {
+      id: nextId,
+      code: action.product
+    };
     return {
       ...state,
       lastId: nextId,
       cart: [
         ...state.cart,
-        {
-          id: nextId,
-          code: action.product
-        }
+        newProduct
       ]
     }
   },
   [CART_REMOVE](state, action) {
+    let newCart = state.cart.filter((product) => {
+      if(product.id !== action.productId) {
+        return product;
+      }
+      return false;
+    });
     return {
       ...state, 
-      cart : state.cart.filter((product) => {
-        if(product.id !== action.productId) {
-          return product;
-        }
-        return false;
-      })
+      cart : newCart
     }
   },
   [CART_SAVE](state, action) {

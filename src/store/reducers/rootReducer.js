@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import {combineReducers} from 'redux'
 import domainReducer from './domain'
 import cartReducer from './cart'
 

@@ -1,9 +1,10 @@
 import React from 'react';
 import TLD from '../TLD/TLD';
 import { useSelector } from 'react-redux'
+import { getAllDomains } from '../../store/selectors/domain';
 
 function TLDsList()  {
-  const domains = useSelector((state) => state.domain.domains)
+  const domains = useSelector(getAllDomains)
   return (
     <React.Fragment>
     {

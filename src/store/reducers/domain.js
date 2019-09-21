@@ -5,6 +5,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
+  loading: false,
   domains: JSON.parse(localStorage.getItem('domains')) || [],
 }
 

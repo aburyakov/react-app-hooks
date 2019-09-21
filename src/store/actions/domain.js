@@ -21,13 +21,14 @@ export function searchDomain(domain) {
               return ((el || {}).name || '').split('.')[0] === domain;
             });
             localStorage.setItem('domains', JSON.stringify(domains));
-            dispatch(searchDomainSuccess(domains))
+            dispatch(searchDomainSuccess(domains));
             resolve(responce.data);
           }
+        } else {
+          dispatch(searchDomainError(responce));
         }
-        dispatch(searchDomainError(responce))
       }).catch( error => {
-        dispatch(searchDomainError(error))
+        dispatch(searchDomainError(error));
         reject(error);
       });
     });
