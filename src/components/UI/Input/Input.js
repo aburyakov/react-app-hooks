@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 function Input({ onChange, label, id, wrapClasses, ...restProps }) {
   const [valid, setValid] = useState(false);
 
   const validate = (value) => {
-    let validStatus = !!value;
+    const validStatus = !!value;
     setValid(validStatus);
     return validStatus;
-  }
+  };
 
   const changeHandler = (event) => {
     validate(event.target.value);
     onChange(event);
-  }
+  };
 
   const allWrapClasses = 'input-wrapper form-group input-group mb-12' + wrapClasses;
 
@@ -21,11 +21,11 @@ function Input({ onChange, label, id, wrapClasses, ...restProps }) {
     <div className={allWrapClasses}>
       <label htmlFor={id}>{label}</label>
       <div className="input-group-append">
-        <input 
-          id={ id } 
-          type="text" 
+        <input
+          id={ id }
+          type="text"
           value=""
-          onChange={ changeHandler } 
+          onChange={ changeHandler }
           className="form-control"
           placeholder="Enter domain name"
           { ...restProps }
@@ -33,7 +33,7 @@ function Input({ onChange, label, id, wrapClasses, ...restProps }) {
       </div>
       { !valid && <div>Please enter domain name.</div> }
     </div>
-  )
+  );
 }
 
 Input.defaultProps = {
@@ -54,7 +54,7 @@ Input.propTypes = {
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.bool
+    PropTypes.bool,
   ]),
 };
 

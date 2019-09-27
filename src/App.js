@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 import HomaPage from './pages/HomePage/HomePage';
 import SearchResaltPage from './pages/SearchResaltPage/SearchResaltPage';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
+import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
 
 function App() {
   return (

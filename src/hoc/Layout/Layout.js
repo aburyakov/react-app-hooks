@@ -3,7 +3,7 @@ import Header from '../../pages/Header/Header';
 import Footer from '../../pages/Footer/Footer';
 import PropTypes from 'prop-types';
 
-function Layout({ children }) {
+function Layout({children}) {
   return (
     <React.Fragment>
       <Header />
@@ -14,7 +14,7 @@ function Layout({ children }) {
 }
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
