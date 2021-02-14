@@ -7,7 +7,7 @@ function Layout({children}) {
   return (
     <React.Fragment>
       <Header />
-      <main className="main container-fluid">{ children }</main>
+        <main className="main container-fluid">{ children }</main>
       <Footer />
     </React.Fragment>
   );

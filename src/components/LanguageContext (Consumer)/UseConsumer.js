@@ -1,4 +1,6 @@
+import React from 'react';
 import LanguageContext from './LanguageContext';
+import ThemeContext from './ThemeContext';
 
 <LanguageContext.Consumer>
   {({ updateLanguage }) => (
@@ -18,3 +20,18 @@ OR
 	</IntlProvider>
   )}
 </LanguageContext.Consumer>
+
+OR
+
+class ThemedButton extends React.Component {
+  render() {
+    let theme = this.context;
+    
+    return (
+      <button
+        style={{backgroundColor: theme.background}}
+      />
+    );
+  }
+}
+ThemedButton.contextType = ThemeContext;
