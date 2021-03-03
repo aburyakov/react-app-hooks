@@ -7,7 +7,7 @@ import { getProductById } from '../../../store/selectors/cart';
 
 function TLD({ domain }) {
   const dispatch = useDispatch();
-  const selectGetProductById = useMemo(getProductById, []);// for multiple component instances depends on the component's props
+  const selectGetProductById = useMemo(getProductById, [domain]);// for multiple component instances depends on the component's props
   const inCart = useSelector((state) => selectGetProductById(state, domain));
 
   const addDomain = (domainName) => {

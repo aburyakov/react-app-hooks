@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react';
-import Input from '../UI/Input/Input';
-import Button from '../UI/Button/Button';
+import Input from '../../components/UI/Input/Input';
+import Button from '../../components/UI/Button/Button';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { searchDomain } from '../../store/actions/domain';

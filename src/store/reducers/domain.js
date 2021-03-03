@@ -10,17 +10,17 @@ const initialState = {
 };
 
 const actions = {
-  [SEARCH_DOMAIN_START](state, action) {
+  [SEARCH_DOMAIN_START](state) {
     return {
       ...state, loading: true,
     };
   },
-  [SEARCH_DOMAIN_SUCCESS](state, action) {
+  [SEARCH_DOMAIN_SUCCESS](state, { domains }) {
     return {
-      ...state, loading: false, domains: action.domains,
+      ...state, loading: false, domains: domains,
     };
   },
-  [SEARCH_DOMAIN_ERROR](state, action) {
+  [SEARCH_DOMAIN_ERROR](state) {
     return {
       ...state, loading: false,
     };

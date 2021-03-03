@@ -1,8 +1,8 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import TLDsList from '../../components/TLDsList/TLDsList';
+import TLDsList from '../../containers/TLDsList/TLDsList';
 import { NavLink } from 'react-router-dom';
-import Cart from "../../components/Cart/Cart";
+import Cart from "../../containers/Cart/Cart";
 
 function SearchResaltPage() {
   return (

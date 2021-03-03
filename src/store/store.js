@@ -10,9 +10,11 @@ const composeEnhancers =
     }) : compose;
 
 
-export const store = createStore(
+ const store = createStore(
     rootReducer,
     composeEnhancers(
         applyMiddleware(thunk, loggerMiddleware)
     )
 );
+
+export default store;

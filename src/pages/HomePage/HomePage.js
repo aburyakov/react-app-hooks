@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/Layout/Layout';
-import SearchDomain from '../../components/SearchDomain/SearchDomain';
+import SearchDomain from '../../containers/SearchDomain/SearchDomain';
 import Loader from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import { getLoading } from '../../store/selectors/domain';

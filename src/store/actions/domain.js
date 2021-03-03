@@ -7,7 +7,7 @@ import {
 } from './actionTypes';
 
 export function searchDomain(domain) {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(searchDomainStart());
     return new Promise( (resolve, reject) => {
       axios.post('/api/dns/fullLookup/' + domain, {
